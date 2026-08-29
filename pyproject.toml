@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "topologyproof"
+version = "0.1.0"
+description = "Evidence-driven topology assumption analysis."
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi==0.141.1",
+  "httpx==0.28.1",
+  "pydantic==2.13.5",
+  "pydantic-settings==2.15.0",
+  "uvicorn==0.52.4",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy==2.3.1",
+  "pytest==9.1.1",
+  "pytest-cov==7.1.0",
+  "ruff==0.16.5",
+]
+live = [
+  "openai==3.6.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["backend*"]
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["backend"]

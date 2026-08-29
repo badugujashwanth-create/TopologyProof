@@ -1,0 +1,30 @@
+# TopologyProof
+
+TopologyProof is a local, evidence-driven tool for examining deployment assumptions in Git changes. This initial M0 foundation provides validated server settings and a health endpoint only; it does not analyze repositories.
+
+## Windows setup
+
+Use Python 3.12 or 3.13 from PowerShell:
+
+```powershell
+python -m venv .venv
+& .\.venv\Scripts\python.exe -m pip install pip-tools==7.6.1
+& .\.venv\Scripts\pip-compile.exe --no-emit-index-url --extra dev --generate-hashes --output-file requirements.lock pyproject.toml
+& .\.venv\Scripts\python.exe -m pip install --require-hashes -r requirements.lock
+& .\.venv\Scripts\python.exe -m pip install --no-deps -e .
+```
+
+## Run and verify
+
+```powershell
+& .\.venv\Scripts\python.exe -m uvicorn backend.app.main:create_app --factory --host 127.0.0.1 --port 8000
+& .\.venv\Scripts\python.exe -m pytest backend/tests/test_foundation.py -v
+& .\.venv\Scripts\python.exe -m ruff check backend
+& .\.venv\Scripts\python.exe -m mypy backend
+```
+
+The local health check is `GET http://127.0.0.1:8000/api/v1/health`.
+
+## Configuration
+
+Copy `.env.example` to `.env` to override settings. The default provider is `offline`; `TOPOLOGYPROOF_OPENAI_API_KEY` and `TOPOLOGYPROOF_OPENAI_MODEL` are blank by default and are not required for the M0 health service. Artifact storage defaults to `.topologyproof/runs` and is ignored by Git.
