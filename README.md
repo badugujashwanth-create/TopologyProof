@@ -25,6 +25,20 @@ python -m venv .venv
 
 The local health check is `GET http://127.0.0.1:8000/api/v1/health`.
 
+## Trusted webhook fixture
+
+Create the local two-commit webhook fixture when developing or testing the later
+analysis pipeline:
+
+```powershell
+& .\.venv\Scripts\python.exe -m demo.webhook_dedup.materialize --destination .topologyproof\fixtures\webhook-dedup
+git -C .topologyproof\fixtures\webhook-dedup status --short
+```
+
+The command prints the repository path, base ref, candidate ref, and requirement
+text as JSON. The fixture is a trusted local input for analysis tests; it is not
+executed or modified by the later analysis workflow.
+
 ## Frontend foundation
 
 Install the frontend dependencies, then start the local Vite server:

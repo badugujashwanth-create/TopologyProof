@@ -1,0 +1,1 @@
+Each external payment webhook event must produce at most one durable payment record.
