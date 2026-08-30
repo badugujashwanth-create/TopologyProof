@@ -1,6 +1,6 @@
 # TopologyProof
 
-TopologyProof is a local, evidence-driven tool for examining deployment assumptions in Git changes. This initial M0 foundation provides validated server settings and a health endpoint only; it does not analyze repositories.
+TopologyProof is a local, evidence-driven tool for examining deployment assumptions in Git changes. This initial M0 foundation provides validated server settings, a health endpoint, and a minimal frontend identity shell only; it does not analyze repositories.
 
 ## Windows setup
 
@@ -24,6 +24,26 @@ python -m venv .venv
 ```
 
 The local health check is `GET http://127.0.0.1:8000/api/v1/health`.
+
+## Frontend foundation
+
+Install the frontend dependencies, then start the local Vite server:
+
+```powershell
+npm --prefix frontend install
+npm --prefix frontend run dev
+```
+
+The foundation shell is served at `http://127.0.0.1:5173`. It contains no analysis controls or API integration.
+
+Run the frontend checks from the repository root:
+
+```powershell
+npm --prefix frontend run lint
+npm --prefix frontend run typecheck
+npm --prefix frontend run test -- --run
+npm --prefix frontend run build
+```
 
 ## Configuration
 

@@ -1,0 +1,53 @@
+:root {
+  color: #e7edf8;
+  background: #0b1020;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #0b1020;
+}
+
+.app-shell {
+  display: grid;
+  min-height: 100vh;
+  align-content: center;
+  gap: 1rem;
+  padding: clamp(1.5rem, 8vw, 7rem);
+  border-top: 2px solid #3b82f6;
+  background: radial-gradient(circle at top right, #172554, transparent 44%), #0b1020;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #93c5fd;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+.tagline {
+  max-width: 34rem;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  letter-spacing: -0.06em;
+}
+
+.tagline {
+  color: #b7c4da;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.55;
+}

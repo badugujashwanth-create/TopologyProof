@@ -4,7 +4,7 @@ Every criterion begins `NOT-VERIFIED`. Status changes require the named executed
 
 | ID | Acceptance criterion | Status | Required evidence |
 |---|---|---|---|
-| GC-01 | Clean checkout installs and runs documented development tooling. | NOT-VERIFIED | Clean-environment install and startup commands. |
+| GC-01 | Clean checkout installs and runs documented development tooling. | PARTIAL | Frontend M0 tooling was exercised on 2026-08-30: `npm --prefix frontend install` (blocked by Windows `EPERM` opening `package-lock.json`), `npm --prefix frontend run lint` (exit 0), `npm --prefix frontend run typecheck` (blocked writing `node_modules/.tmp/*.tsbuildinfo`), `npm --prefix frontend run test -- --run` (blocked writing `node_modules/.vite-temp/*`), and `npm --prefix frontend run build` (blocked by the same TypeScript temporary-file writes). See `docs/status/task-2-report.md`; clean-checkout and startup evidence remain for Task 15. |
 | GC-02 | Local repository validation and ref resolution avoid target mutation. | NOT-VERIFIED | Git integration and hostile-input tests. |
 | GC-03 | Diff, changed paths, and changed Python symbols are extracted. | NOT-VERIFIED | Materialized-fixture integration tests. |
 | GC-04 | Unsafe module-level deduplication state is identified without overclaiming. | NOT-VERIFIED | Positive and cache-only negative tests. |

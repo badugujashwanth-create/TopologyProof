@@ -6,7 +6,7 @@
 
 **Architecture:** A single FastAPI process runs an explicit typed pipeline and stores atomic JSON/JSONL/Markdown run artifacts outside analyzed repositories. A React/Vite client uses versioned HTTP contracts and real polling state. Git-object reads, deterministic AST analysis, an offline semantic provider, and validated evidence form the required path; the OpenAI Responses API adapter is isolated and credential-gated.
 
-**Tech Stack:** Python 3.13, FastAPI 0.141.1, Pydantic 2.13.5, OpenAI Python 3.6.0, pytest 9.1.1, Ruff 0.16.5, mypy 2.3.1, React 19.2.8, TypeScript 7.0.2, Vite 8.2.2, Vitest 4.1.11, Playwright 1.62.1, npm 11 with `package-lock.json`.
+**Tech Stack:** Python 3.13, FastAPI 0.141.1, Pydantic 2.13.5, OpenAI Python 3.6.0, pytest 9.1.1, Ruff 0.16.5, mypy 2.3.1, React 19.2.8, TypeScript 5.9.3, Vite 8.2.2, Vitest 4.1.11, Playwright 1.62.1, npm 11 with `package-lock.json`.
 
 **Spec:** `docs/superpowers/specs/2026-08-29-topologyproof-design.md`
 
@@ -93,13 +93,15 @@ Frontend direct pins in `frontend/package.json`:
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "0.5.5",
     "jsdom": "30.0.1",
-    "typescript": "7.0.2",
+    "typescript": "5.9.3",
     "typescript-eslint": "8.68.0",
     "vite": "8.2.2",
     "vitest": "4.1.11"
   }
 }
 ```
+
+TypeScript 5.9.3 is intentionally pinned because it is the released stable compiler range supported by the selected Vite, Vitest, and `typescript-eslint` peer dependencies; the previously planned 7.0.2 value is not an installable peer-compatible release for this dependency set.
 
 ## File and Responsibility Map
 
@@ -326,7 +328,7 @@ git add .gitattributes .gitignore .env.example pyproject.toml requirements.lock 
 git commit -m "chore: establish Python project foundation"
 ```
 
-### Task 2: M0 React/Vite Foundation
+### Task 2: M0 React/Vite/TypeScript Foundation
 
 **Files:**
 - Create: `frontend/package.json`
@@ -347,17 +349,17 @@ git commit -m "chore: establish Python project foundation"
 - Modify: `docs/status/m0-m1-goal-contract.md`
 
 **Interfaces:**
-- Produces: Vite app at `http://127.0.0.1:5173`, strict TypeScript, scripts `dev`, `build`, `lint`, `typecheck`, `test`, `e2e`; initial `App` shell.
-- Consumes: `/api/v1` prefix and workbench visual direction from Task 1/spec.
+- Produces: Vite app at `http://127.0.0.1:5173`, strict TypeScript, scripts `dev`, `build`, `lint`, `typecheck`, and `test`; minimal mountable `App` shell only.
+- Consumes: the workbench visual direction from Task 1/spec. It does not implement product screens, API calls, navigation, analysis data, progress, findings, evaluation, or unavailable controls.
 
-- [ ] **Step 1: Invoke `frontend-skill`, then write the failing shell test**
+- [ ] **Step 1: Invoke `frontend-skill`, then write the failing foundation test**
 
 ```tsx
-it("renders the engineering verification identity without chat UI", () => {
+it("renders the minimal product identity without product functionality", () => {
   render(<App />);
   expect(screen.getByRole("heading", { name: "TopologyProof" })).toBeVisible();
   expect(screen.getByText("Agentic Falsification of Hidden Deployment Assumptions")).toBeVisible();
-  expect(screen.queryByRole("textbox", { name: /message/i })).not.toBeInTheDocument();
+  expect(screen.queryByRole("button")).not.toBeInTheDocument();
 });
 ```
 
@@ -376,7 +378,7 @@ Expected: test fails because `App` and test setup are not implemented.
 
 - [ ] **Step 3: Implement the minimal app shell and tool configuration**
 
-Use the exact dependency object in this plan, strict compiler settings (`strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`), `jsdom`, and accessible landmark markup. Define visual tokens in `styles.css` and no component library.
+Use the exact dependency object in this plan, strict compiler settings (`strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`), `jsdom`, and accessible landmark markup. Define restrained dark engineering-workspace tokens in `styles.css` and no component library. Do not add route shells or fake data; the four M1 screens belong to Task 13 and the Evaluation Dashboard belongs to M7.
 
 ```tsx
 export function App(): React.JSX.Element {
