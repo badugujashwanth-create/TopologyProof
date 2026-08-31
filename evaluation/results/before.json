@@ -1,0 +1,82 @@
+[
+  {
+    "case_id": "CASE-01",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-02",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-03",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-04",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-05",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-06",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-07",
+    "expected": "SAFE",
+    "baseline": false,
+    "topologyproof": false,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-08",
+    "expected": "SAFE",
+    "baseline": false,
+    "topologyproof": false,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-09",
+    "expected": "SAFE",
+    "baseline": false,
+    "topologyproof": false,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  },
+  {
+    "case_id": "CASE-10",
+    "expected": "RISK",
+    "baseline": true,
+    "topologyproof": true,
+    "evidence_grounded": true,
+    "notes": "offline baseline proxy; production runner integration pending"
+  }
+]
