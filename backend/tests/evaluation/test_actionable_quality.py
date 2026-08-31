@@ -1,4 +1,6 @@
 ﻿from evaluation.actionable_quality import CriterionResult, QualityScore, evaluate
+
+
 def test_six_criteria_and_derived_total():
  result=evaluate(); assert len(result['baseline']['criteria'])==6; assert result['baseline']['total']==sum(c['satisfied'] for c in result['baseline']['criteria'])
 def test_all_false_and_true_totals():

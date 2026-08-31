@@ -41,3 +41,12 @@ Each completed run persists `run.json`, `request.json`, `trajectory.jsonl`, `fin
 ## Trust and limits
 
 Analyzed repositories are untrusted, read-only data. TopologyProof does not run target Python, tests, scripts, package managers, hooks, binaries, or shell instructions. Secret-prone content is bounded/redacted. The deterministic offline provider is the default; live provider credentials are optional. M1 is static-first, makes no universal-safety claim, and does not execute runtime verification.
+
+## Improvement Changelog
+
+Baseline diff-only review scored 1/6 actionable criteria. The verified TopologyProof artifact scored 6/6. Historical iterations added bounded context, mutable-state signals, hidden-assumption mining, evidence validation, conservative verdicts, recommendations, and reproducible API/browser artifacts; no per-iteration metric is claimed.
+
+## Hot Take
+
+The dangerous assumption in backend code is often not in the input contract. It is in the world the code assumes it is running in.
+
