@@ -16,11 +16,11 @@ class RunStore:
         return self.root/run_id
     def create(self, run_id: str, request: object) -> None:
         """Create request and run records."""
-        d=self._dir(run_id); d.mkdir(exist_ok=False); self._atomic(d/"request.json", json.dumps(request, default=str)); self._atomic(d/"run.json", json.dumps({"run_id":run_id,"status":"queued"}))
+        d=self._dir(run_id); d.mkdir(exist_ok=False); self._atomic(d/"request.json", json.dumps(request, default=str, ensure_ascii=False)); self._atomic(d/"run.json", json.dumps({"run_id":run_id,"status":"queued"}))
     def read(self, run_id: str, name: str) -> str:
         """Read an artifact."""; return (self._dir(run_id)/name).read_text(encoding="utf-8")
     def publish_findings(self, run_id: str, findings: object) -> None:
-        """Publish findings atomically."""; self._atomic(self._dir(run_id)/"findings.json", json.dumps(findings, default=str))
+        """Publish findings atomically."""; self._atomic(self._dir(run_id)/"findings.json", json.dumps(findings, default=str, ensure_ascii=False))
     def publish_report(self, run_id: str, report: str) -> None:
         """Publish Markdown report atomically."""; self._atomic(self._dir(run_id)/"report.md", report)
     def mark_interrupted(self, run_id: str) -> None:
@@ -29,3 +29,4 @@ class RunStore:
     def _atomic(path: Path, content: str) -> None:
         """Write and atomically replace a sibling temporary file."""
         tmp=path.with_suffix(path.suffix+".tmp"); tmp.write_text(content,encoding="utf-8"); os.replace(tmp,path)
+
