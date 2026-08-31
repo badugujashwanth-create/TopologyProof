@@ -1,4 +1,4 @@
-# TopologyProof M0 + M1 Implementation Plan
+﻿# TopologyProof M0 + M1 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -107,123 +107,123 @@ TypeScript 5.9.3 is intentionally pinned because it is the released stable compi
 
 ### Root and documentation
 
-- `.gitattributes` — text normalization without changing target repositories.
-- `.gitignore` — credentials, virtual environments, Node output, Playwright output, and `.topologyproof/` artifacts.
-- `.env.example` — safe setting names with offline defaults and blank secrets/model.
-- `pyproject.toml` — Python package metadata, direct pins, pytest/Ruff/mypy configuration.
-- `requirements.lock` — generated transitive Python lock with hashes.
-- `README.md` — Windows-first install, run, fixture, verification, and provider instructions.
-- `ARCHITECTURE.md` — implemented M0/M1 boundaries and trust model.
-- `docs/status/m0-m1-goal-contract.md` — GC-01 through GC-14 evidence ledger.
-- `.github/workflows/ci.yml` — deterministic backend, frontend, and browser jobs without secrets.
-- `scripts/verify.ps1` — one-command local milestone verification.
+- `.gitattributes` â€” text normalization without changing target repositories.
+- `.gitignore` â€” credentials, virtual environments, Node output, Playwright output, and `.topologyproof/` artifacts.
+- `.env.example` â€” safe setting names with offline defaults and blank secrets/model.
+- `pyproject.toml` â€” Python package metadata, direct pins, pytest/Ruff/mypy configuration.
+- `requirements.lock` â€” generated transitive Python lock with hashes.
+- `README.md` â€” Windows-first install, run, fixture, verification, and provider instructions.
+- `ARCHITECTURE.md` â€” implemented M0/M1 boundaries and trust model.
+- `docs/status/m0-m1-goal-contract.md` â€” GC-01 through GC-14 evidence ledger.
+- `.github/workflows/ci.yml` â€” deterministic backend, frontend, and browser jobs without secrets.
+- `scripts/verify.ps1` â€” one-command local milestone verification.
 
 ### Backend application
 
-- `backend/__init__.py`, `backend/app/__init__.py` — package markers.
-- `backend/app/config.py` — validated settings and named limits.
-- `backend/app/errors.py` — typed domain error and FastAPI mapping.
-- `backend/app/main.py` — application factory, CORS, exception handlers, router composition, restart cleanup.
-- `backend/app/schemas/common.py` — enums and common diagnostics.
-- `backend/app/schemas/evidence.py` — checked source locations.
-- `backend/app/schemas/repository.py` — request, snapshot, diff, path, preview, and changed-symbol contracts.
-- `backend/app/schemas/analysis.py` — context, static signal, mining input, hypothesis, and batch contracts.
-- `backend/app/schemas/findings.py` — recommendation, finding, finding list, and overall verdict contracts.
-- `backend/app/schemas/runs.py` — run state, stages, trajectory, report, and API status contracts.
-- `backend/app/schemas/__init__.py` — stable schema exports.
-- `backend/app/ingestion/git_client.py` — bounded shell-free Git execution and blob/tree operations.
-- `backend/app/ingestion/service.py` — request/ref resolution, diff loading, changed paths, preview.
-- `backend/app/ingestion/symbols.py` — diff-hunk-aware Python symbol detection.
-- `backend/app/context/python_graph.py` — AST name uses, enclosing functions, imports, direct callees.
-- `backend/app/context/builder.py` — prioritized bounded context selection and secret-file exclusion.
-- `backend/app/static_analysis/mutable_state.py` — deterministic module mutable-collection signals and use facts.
-- `backend/app/agents/assumption_miner/provider.py` — provider protocol, registry, and provider errors.
-- `backend/app/agents/assumption_miner/offline.py` — deterministic webhook correctness-chain inference.
-- `backend/app/agents/assumption_miner/redaction.py` — bounded provider payload and secret-pattern redaction.
-- `backend/app/agents/assumption_miner/openai_provider.py` — structured Responses API adapter.
-- `backend/app/findings/synthesizer.py` — evidence validation and stable finding construction.
-- `backend/app/findings/verdicts.py` — finding/overall verdict rules.
-- `backend/app/verification/policy.py` — recommendation normalization only; no executor.
-- `backend/app/trajectories/recorder.py` — per-run monotonic JSONL events.
-- `backend/app/reports/generator.py` — deterministic Markdown report.
-- `backend/app/runs/store.py` — atomic per-run artifact store and startup interruption cleanup.
-- `backend/app/runs/orchestrator.py` — explicit stage pipeline and failure transitions.
-- `backend/app/runs/executor.py` — background/inline executor boundary.
-- `backend/app/api/health.py` — health route.
-- `backend/app/api/analyses.py` — preview, create, status, findings, detail, trajectory, report routes.
-- `backend/app/api/dependencies.py` — application dependency container.
-- `backend/app/api/router.py` — `/api/v1` route composition.
+- `backend/__init__.py`, `backend/app/__init__.py` â€” package markers.
+- `backend/app/config.py` â€” validated settings and named limits.
+- `backend/app/errors.py` â€” typed domain error and FastAPI mapping.
+- `backend/app/main.py` â€” application factory, CORS, exception handlers, router composition, restart cleanup.
+- `backend/app/schemas/common.py` â€” enums and common diagnostics.
+- `backend/app/schemas/evidence.py` â€” checked source locations.
+- `backend/app/schemas/repository.py` â€” request, snapshot, diff, path, preview, and changed-symbol contracts.
+- `backend/app/schemas/analysis.py` â€” context, static signal, mining input, hypothesis, and batch contracts.
+- `backend/app/schemas/findings.py` â€” recommendation, finding, finding list, and overall verdict contracts.
+- `backend/app/schemas/runs.py` â€” run state, stages, trajectory, report, and API status contracts.
+- `backend/app/schemas/__init__.py` â€” stable schema exports.
+- `backend/app/ingestion/git_client.py` â€” bounded shell-free Git execution and blob/tree operations.
+- `backend/app/ingestion/service.py` â€” request/ref resolution, diff loading, changed paths, preview.
+- `backend/app/ingestion/symbols.py` â€” diff-hunk-aware Python symbol detection.
+- `backend/app/context/python_graph.py` â€” AST name uses, enclosing functions, imports, direct callees.
+- `backend/app/context/builder.py` â€” prioritized bounded context selection and secret-file exclusion.
+- `backend/app/static_analysis/mutable_state.py` â€” deterministic module mutable-collection signals and use facts.
+- `backend/app/agents/assumption_miner/provider.py` â€” provider protocol, registry, and provider errors.
+- `backend/app/agents/assumption_miner/offline.py` â€” deterministic webhook correctness-chain inference.
+- `backend/app/agents/assumption_miner/redaction.py` â€” bounded provider payload and secret-pattern redaction.
+- `backend/app/agents/assumption_miner/openai_provider.py` â€” structured Responses API adapter.
+- `backend/app/findings/synthesizer.py` â€” evidence validation and stable finding construction.
+- `backend/app/findings/verdicts.py` â€” finding/overall verdict rules.
+- `backend/app/verification/policy.py` â€” recommendation normalization only; no executor.
+- `backend/app/trajectories/recorder.py` â€” per-run monotonic JSONL events.
+- `backend/app/reports/generator.py` â€” deterministic Markdown report.
+- `backend/app/runs/store.py` â€” atomic per-run artifact store and startup interruption cleanup.
+- `backend/app/runs/orchestrator.py` â€” explicit stage pipeline and failure transitions.
+- `backend/app/runs/executor.py` â€” background/inline executor boundary.
+- `backend/app/api/health.py` â€” health route.
+- `backend/app/api/analyses.py` â€” preview, create, status, findings, detail, trajectory, report routes.
+- `backend/app/api/dependencies.py` â€” application dependency container.
+- `backend/app/api/router.py` â€” `/api/v1` route composition.
 - Every backend subpackage above receives an `__init__.py` package marker.
 
 ### Demo fixture
 
-- `demo/webhook_dedup/base/app/main.py` — base FastAPI route without deduplication.
-- `demo/webhook_dedup/base/app/payments.py` — unchanged durable SQLite side effect.
-- `demo/webhook_dedup/candidate/app/main.py` — candidate route with process-local deduplication.
-- `demo/webhook_dedup/candidate/app/payments.py` — identical durable side effect.
-- `demo/webhook_dedup/ticket.txt` — idempotency requirement without evaluator label.
-- `demo/webhook_dedup/materialize.py` — trusted two-commit temporary repository builder.
+- `demo/webhook_dedup/base/app/main.py` â€” base FastAPI route without deduplication.
+- `demo/webhook_dedup/base/app/payments.py` â€” unchanged durable SQLite side effect.
+- `demo/webhook_dedup/candidate/app/main.py` â€” candidate route with process-local deduplication.
+- `demo/webhook_dedup/candidate/app/payments.py` â€” identical durable side effect.
+- `demo/webhook_dedup/ticket.txt` â€” idempotency requirement without evaluator label.
+- `demo/webhook_dedup/materialize.py` â€” trusted two-commit temporary repository builder.
 
 ### Backend tests
 
-- `backend/tests/conftest.py` — settings, API client, artifact root, and materialized fixture fixtures.
-- `backend/tests/helpers/git_repo.py` — trusted test-only Git helpers.
-- `backend/tests/test_foundation.py` — health/settings baseline.
-- `backend/tests/schemas/test_contracts.py` — contract validation and exact taxonomy.
-- `backend/tests/demo/test_materialize.py` — genuine two-commit fixture behavior.
-- `backend/tests/ingestion/test_git_client.py` — bounded execution, hostile refs, blob reads, no target writes.
-- `backend/tests/ingestion/test_service.py` — resolution, diff, summary, errors, limits.
-- `backend/tests/ingestion/test_symbols.py` — changed Python symbols and syntax diagnostics.
-- `backend/tests/context/test_builder.py` — provenance, call expansion, budgets, secret exclusion.
-- `backend/tests/static_analysis/test_mutable_state.py` — mutable signals and non-finding separation.
-- `backend/tests/agents/test_offline_provider.py` — complete chain, cache-only negative, uncertainty.
-- `backend/tests/agents/test_openai_provider.py` — mocked structured output, refusal, timeout, missing configuration.
-- `backend/tests/agents/test_redaction.py` — key/file/source redaction and size bound.
-- `backend/tests/findings/test_synthesizer.py` — evidence line/blob validation and stable IDs.
-- `backend/tests/findings/test_verdicts.py` — RED/YELLOW/GREEN labels and threshold.
-- `backend/tests/verification/test_policy.py` — recommendation only and no runtime capability.
-- `backend/tests/trajectories/test_recorder.py` — real ordered events and safe summaries.
-- `backend/tests/reports/test_generator.py` — stable report sections/ordering/limitations.
-- `backend/tests/runs/test_store.py` — atomic files, traversal rejection, interrupted run cleanup.
-- `backend/tests/runs/test_orchestrator.py` — stages, provider failure, artifact publication.
-- `backend/tests/api/test_analyses.py` — endpoint statuses, polling, not-ready, errors.
-- `backend/tests/integration/test_offline_vertical_slice.py` — full fixture-to-report pipeline.
-- `backend/tests/integration/test_live_api.py` — real Uvicorn process and HTTP smoke.
-- `backend/tests/security/test_trust_boundary.py` — command injection, symlink/worktree, secrets, and non-execution regression suite.
+- `backend/tests/conftest.py` â€” settings, API client, artifact root, and materialized fixture fixtures.
+- `backend/tests/helpers/git_repo.py` â€” trusted test-only Git helpers.
+- `backend/tests/test_foundation.py` â€” health/settings baseline.
+- `backend/tests/schemas/test_contracts.py` â€” contract validation and exact taxonomy.
+- `backend/tests/demo/test_materialize.py` â€” genuine two-commit fixture behavior.
+- `backend/tests/ingestion/test_git_client.py` â€” bounded execution, hostile refs, blob reads, no target writes.
+- `backend/tests/ingestion/test_service.py` â€” resolution, diff, summary, errors, limits.
+- `backend/tests/ingestion/test_symbols.py` â€” changed Python symbols and syntax diagnostics.
+- `backend/tests/context/test_builder.py` â€” provenance, call expansion, budgets, secret exclusion.
+- `backend/tests/static_analysis/test_mutable_state.py` â€” mutable signals and non-finding separation.
+- `backend/tests/agents/test_offline_provider.py` â€” complete chain, cache-only negative, uncertainty.
+- `backend/tests/agents/test_openai_provider.py` â€” mocked structured output, refusal, timeout, missing configuration.
+- `backend/tests/agents/test_redaction.py` â€” key/file/source redaction and size bound.
+- `backend/tests/findings/test_synthesizer.py` â€” evidence line/blob validation and stable IDs.
+- `backend/tests/findings/test_verdicts.py` â€” RED/YELLOW/GREEN labels and threshold.
+- `backend/tests/verification/test_policy.py` â€” recommendation only and no runtime capability.
+- `backend/tests/trajectories/test_recorder.py` â€” real ordered events and safe summaries.
+- `backend/tests/reports/test_generator.py` â€” stable report sections/ordering/limitations.
+- `backend/tests/runs/test_store.py` â€” atomic files, traversal rejection, interrupted run cleanup.
+- `backend/tests/runs/test_orchestrator.py` â€” stages, provider failure, artifact publication.
+- `backend/tests/api/test_analyses.py` â€” endpoint statuses, polling, not-ready, errors.
+- `backend/tests/integration/test_offline_vertical_slice.py` â€” full fixture-to-report pipeline.
+- `backend/tests/integration/test_live_api.py` â€” real Uvicorn process and HTTP smoke.
+- `backend/tests/security/test_trust_boundary.py` â€” command injection, symlink/worktree, secrets, and non-execution regression suite.
 
 ### Frontend
 
-- `frontend/package.json`, `frontend/package-lock.json` — scripts, exact direct pins, transitive lock.
-- `frontend/index.html` — Vite entry document.
-- `frontend/tsconfig.json`, `frontend/tsconfig.app.json`, `frontend/tsconfig.node.json` — strict TypeScript.
-- `frontend/vite.config.ts`, `frontend/vitest.config.ts`, `frontend/eslint.config.js` — build/test/lint configuration.
-- `frontend/playwright.config.ts` — real backend/frontend servers and desktop/mobile projects.
-- `frontend/src/main.tsx` — React root.
-- `frontend/src/App.tsx` — native-history route switch for the four M1 screens.
-- `frontend/src/styles.css` — responsive workbench theme and component styles.
-- `frontend/src/api/types.ts` — API wire contracts matching Pydantic serialization.
-- `frontend/src/api/client.ts` — typed `fetch` calls and `ApiError`.
-- `frontend/src/hooks/useRoute.ts` — History API routing.
-- `frontend/src/hooks/useAnalysis.ts` — real status polling and cleanup.
-- `frontend/src/components/AppShell.tsx` — product frame/navigation without evaluation link.
-- `frontend/src/components/ErrorNotice.tsx` — accessible error rendering.
-- `frontend/src/components/StageTimeline.tsx` — eight real stages.
-- `frontend/src/components/VerdictBanner.tsx` — scoped verdict display.
-- `frontend/src/components/TopologyPanel.tsx` — all five dimensions with affected state.
-- `frontend/src/components/EvidenceBlock.tsx` — exact file/line/symbol/excerpt.
-- `frontend/src/pages/NewAnalysisPage.tsx` — preview and submission form.
-- `frontend/src/pages/AnalysisProgressPage.tsx` — real polling/failure/completion navigation.
-- `frontend/src/pages/FindingsDashboardPage.tsx` — counts, verdict, empty/error states.
-- `frontend/src/pages/FindingDetailPage.tsx` — engineering explanation and recommendation without execution control.
-- `frontend/src/test/setup.ts` — DOM matchers and cleanup.
-- `frontend/src/test/render.tsx` — injected API/render helpers.
-- `frontend/src/api/client.test.ts` — success/error wire handling.
-- `frontend/src/pages/NewAnalysisPage.test.tsx` — validation, preview, submit states.
-- `frontend/src/pages/AnalysisProgressPage.test.tsx` — stage/poll/failure states.
-- `frontend/src/pages/FindingsDashboardPage.test.tsx` — risk and empty states.
-- `frontend/src/pages/FindingDetailPage.test.tsx` — evidence/dimensions/recommendation and absent execution button.
-- `frontend/e2e/global-setup.ts` — materialize trusted fixture before browser tests.
-- `frontend/e2e/topologyproof.spec.ts` — desktop/mobile critical flow plus console/network assertions.
+- `frontend/package.json`, `frontend/package-lock.json` â€” scripts, exact direct pins, transitive lock.
+- `frontend/index.html` â€” Vite entry document.
+- `frontend/tsconfig.json`, `frontend/tsconfig.app.json`, `frontend/tsconfig.node.json` â€” strict TypeScript.
+- `frontend/vite.config.ts`, `frontend/vitest.config.ts`, `frontend/eslint.config.js` â€” build/test/lint configuration.
+- `frontend/playwright.config.ts` â€” real backend/frontend servers and desktop/mobile projects.
+- `frontend/src/main.tsx` â€” React root.
+- `frontend/src/App.tsx` â€” native-history route switch for the four M1 screens.
+- `frontend/src/styles.css` â€” responsive workbench theme and component styles.
+- `frontend/src/api/types.ts` â€” API wire contracts matching Pydantic serialization.
+- `frontend/src/api/client.ts` â€” typed `fetch` calls and `ApiError`.
+- `frontend/src/hooks/useRoute.ts` â€” History API routing.
+- `frontend/src/hooks/useAnalysis.ts` â€” real status polling and cleanup.
+- `frontend/src/components/AppShell.tsx` â€” product frame/navigation without evaluation link.
+- `frontend/src/components/ErrorNotice.tsx` â€” accessible error rendering.
+- `frontend/src/components/StageTimeline.tsx` â€” eight real stages.
+- `frontend/src/components/VerdictBanner.tsx` â€” scoped verdict display.
+- `frontend/src/components/TopologyPanel.tsx` â€” all five dimensions with affected state.
+- `frontend/src/components/EvidenceBlock.tsx` â€” exact file/line/symbol/excerpt.
+- `frontend/src/pages/NewAnalysisPage.tsx` â€” preview and submission form.
+- `frontend/src/pages/AnalysisProgressPage.tsx` â€” real polling/failure/completion navigation.
+- `frontend/src/pages/FindingsDashboardPage.tsx` â€” counts, verdict, empty/error states.
+- `frontend/src/pages/FindingDetailPage.tsx` â€” engineering explanation and recommendation without execution control.
+- `frontend/src/test/setup.ts` â€” DOM matchers and cleanup.
+- `frontend/src/test/render.tsx` â€” injected API/render helpers.
+- `frontend/src/api/client.test.ts` â€” success/error wire handling.
+- `frontend/src/pages/NewAnalysisPage.test.tsx` â€” validation, preview, submit states.
+- `frontend/src/pages/AnalysisProgressPage.test.tsx` â€” stage/poll/failure states.
+- `frontend/src/pages/FindingsDashboardPage.test.tsx` â€” risk and empty states.
+- `frontend/src/pages/FindingDetailPage.test.tsx` â€” evidence/dimensions/recommendation and absent execution button.
+- `frontend/e2e/global-setup.ts` â€” materialize trusted fixture before browser tests.
+- `frontend/e2e/topologyproof.spec.ts` â€” desktop/mobile critical flow plus console/network assertions.
 
 ---
 
@@ -815,10 +815,10 @@ Interfaces:
         with pytest.raises(TopologyProofError, match="invalid_evidence_location"):
             FindingSynthesizer().synthesize(snapshot, [hypothesis.model_copy(update={"evidence": [invalid_line_evidence]})])
 
-    def test_webhook_high_risk_is_red(webhook_finding):
+    def test_webhook_high_risk_is_review_required(webhook_finding):
         assert VerdictPolicy().finding_verdict(webhook_finding) == FindingVerdict.HIGH_RISK
         assert VerdictPolicy().overall([webhook_finding]).label == (
-            "TOPOLOGY-SENSITIVE CORRECTNESS RISK"
+            "REVIEW REQUIRED"
         )
 
     def test_recommendation_has_no_execution_control(webhook_finding):
@@ -1061,7 +1061,7 @@ Interfaces:
       await userEvent.type(screen.getByLabelText("Candidate ref"), candidateRef);
       await userEvent.click(screen.getByRole("button", { name: "ANALYZE PATCH" }));
       expect(await screen.findByText(
-        "TOPOLOGY-SENSITIVE CORRECTNESS RISK"
+        "REVIEW REQUIRED"
       )).toBeVisible();
       expect(screen.getByText("Replica Count")).toBeVisible();
       expect(screen.queryByRole("button", {
@@ -1198,3 +1198,4 @@ If all locally verifiable criteria pass, update the ledger to M0/M1 STATUS: COMP
     git add docs/status/m0-m1-goal-contract.md
     git commit -m "verify: close M0 and M1 goal contract"
 Otherwise continue the Goal Contract loop or record a genuine external blocker. Never report the overall TopologyProof project as complete.
+

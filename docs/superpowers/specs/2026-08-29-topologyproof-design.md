@@ -1,4 +1,4 @@
-# TopologyProof Design Specification
+﻿# TopologyProof Design Specification
 
 **Status:** Proposed for written-spec approval  
 **Date:** 2026-08-29  
@@ -15,7 +15,7 @@ The core product claim is deliberately narrow:
 
 The M1 showcase is webhook deduplication implemented with process-local mutable state. TopologyProof must connect a concrete code signal to duplicate suppression, a durable business side effect, and the hidden assumption that equivalent deliveries observe shared state.
 
-TopologyProof is a falsification aid, not a formal proof system. It reports evidence, confidence, uncertainty, limitations, and—only when justified—a focused runtime verification recommendation.
+TopologyProof is a falsification aid, not a formal proof system. It reports evidence, confidence, uncertainty, limitations, andâ€”only when justifiedâ€”a focused runtime verification recommendation.
 
 ## 2. Goals and non-goals
 
@@ -195,7 +195,7 @@ For the webhook slice, expansion follows deterministic references relevant to th
 
 Each item records its repository-relative path, resolved commit, line range, symbol when available, selection reason, and source stage. The builder enforces the file and byte budgets. If the budget prevents adequate context, the run records a limitation and cannot emit a high-confidence finding based on omitted evidence.
 
-Files likely to contain secrets—such as `.env`, credentials, private keys, token stores, and Git internals—are excluded. Text sent to a remote provider is limited to selected excerpts and passed through secret-pattern redaction. Binary files are never sent.
+Files likely to contain secretsâ€”such as `.env`, credentials, private keys, token stores, and Git internalsâ€”are excluded. Text sent to a remote provider is limited to selected excerpts and passed through secret-pattern redaction. Binary files are never sent.
 
 ### 6.3 Static Signal Engine
 
@@ -296,7 +296,7 @@ Overall rendering rules:
 
 | Color | Label | Rule |
 |---|---|---|
-| Red | `TOPOLOGY-SENSITIVE CORRECTNESS RISK` | At least one static/semantic finding is `high-risk`. |
+| Red | `REPRODUCIBLE TOPOLOGY-SENSITIVE FAILURE` | Only a topology-sensitive failure reproduced twice by the M2 runtime verifier. |
 | Red | `REPRODUCIBLE TOPOLOGY-SENSITIVE FAILURE` | A later real runtime verifier observes the stated property violation. This label is impossible in M1. |
 | Yellow | `REVIEW REQUIRED` | At least one finding requires review and none is high-risk. |
 | Green | `NO TESTED TOPOLOGY FAILURE` | No high-risk or review-required finding exists in scope. |
@@ -398,10 +398,10 @@ The frontend is engineering verification software, not a chatbot. It is mobile-f
 
 M1 implements four of the eventual five product screens:
 
-1. **New Analysis** — repository path, ticket, base ref, candidate ref, optional real preview summary, validation errors, and `ANALYZE PATCH`.
-2. **Analysis Progress** — the eight real stages, current status, safe failure details, and transition to findings when complete.
-3. **Findings Dashboard** — overall verdict, finding counts, severity, confidence, and finding summaries; includes a deliberate empty/no-finding state with scope limitations.
-4. **Finding Detail / Verification** — correctness property, hidden assumption, five-dimension sensitivity panel, exact source evidence, predicted failure, confidence/severity, recommendation, and limitations. M1 labels verification as recommended/not recommended but provides no execution button.
+1. **New Analysis** â€” repository path, ticket, base ref, candidate ref, optional real preview summary, validation errors, and `ANALYZE PATCH`.
+2. **Analysis Progress** â€” the eight real stages, current status, safe failure details, and transition to findings when complete.
+3. **Findings Dashboard** â€” overall verdict, finding counts, severity, confidence, and finding summaries; includes a deliberate empty/no-finding state with scope limitations.
+4. **Finding Detail / Verification** â€” correctness property, hidden assumption, five-dimension sensitivity panel, exact source evidence, predicted failure, confidence/severity, recommendation, and limitations. M1 labels verification as recommended/not recommended but provides no execution button.
 
 The **Evaluation Dashboard** is deferred to M7 and is not represented by fake navigation, placeholder metrics, or hard-coded values in M1.
 
@@ -486,7 +486,7 @@ Windows PowerShell instructions are first-class. Commands avoid undocumented glo
 
 ## 14. Milestone boundaries
 
-### 14.1 M0 — foundation only
+### 14.1 M0 â€” foundation only
 
 M0 creates only what M1 needs:
 
@@ -500,7 +500,7 @@ M0 creates only what M1 needs:
 
 M0 does not implement the analysis pipeline, fake product data, runtime lab, benchmark, or submission package.
 
-### 14.2 M1 — flawless static-first webhook slice
+### 14.2 M1 â€” flawless static-first webhook slice
 
 M1 includes:
 
@@ -583,3 +583,4 @@ After written-spec approval:
 ## 18. Open decisions
 
 There are no unresolved product or architectural decisions requiring user choice before M0+M1 planning. Exact package versions, concrete file boundaries, task ordering, and conservative implementation details belong in the M0/M1 implementation plans and must follow this specification without broadening scope.
+
