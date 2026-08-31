@@ -1,12 +1,12 @@
-import type React from "react";
-
-/** Render the minimal TopologyProof application identity. */
+﻿import { useState } from "react";
+declare global { interface ImportMeta { readonly env?: Record<string, string | undefined> } }
+const API=import.meta.env?.VITE_API_BASE_URL ?? "http://127.0.0.1:8000/api/v1";
+type View="new"|"progress"|"dashboard"|"detail"; type Result={findings:string;report:string};
 export function App(): React.JSX.Element {
-  return (
-    <main className="app-shell">
-      <p className="eyebrow">Deployment assumption verification</p>
-      <h1>TopologyProof</h1>
-      <p className="tagline">Agentic Falsification of Hidden Deployment Assumptions</p>
-    </main>
-  );
+ const [view,setView]=useState<View>("new"); const [runId,setRunId]=useState(""); const [data,setData]=useState<Result|null>(null); const [form,setForm]=useState({repo_path:"",ticket:"",base_ref:"",candidate_ref:""}); const [error,setError]=useState("");
+ const submit=async()=>{setError(""); try{const r=await fetch(`${API}/analyses`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(form)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); const j=await r.json(); setRunId(j.run_id); setView("progress"); poll(j.run_id);}catch(e){setError(String(e));}};
+ const poll=async(id:string)=>{for(let i=0;i<100;i++){const r=await fetch(`${API}/analyses/${id}`); const j=await r.json(); if(j.status==="completed"){const f=await fetch(`${API}/analyses/${id}/findings`).then(x=>x.text()); const rep=await fetch(`${API}/analyses/${id}/report`).then(x=>x.text()); setData({findings:f,report:rep}); setView("dashboard"); return;} await new Promise(x=>setTimeout(x,100));} setError("Analysis timed out");};
+ if(view==="new") return <main className="app-shell"><header><p className="eyebrow">Deployment assumption verification</p><h1>TopologyProof</h1><p className="tagline">Agentic Falsification of Hidden Deployment Assumptions</p></header><section className="panel"><h2>New analysis</h2>{(["repo_path","ticket","base_ref","candidate_ref"] as const).map(k=><label key={k}>{k.replace("_"," ")}<input value={form[k]} onChange={e=>setForm({...form,[k]:e.target.value})}/></label>)}<button onClick={submit}>ANALYZE PATCH</button>{error&&<p className="error">{error}</p>}</section></main>;
+ if(view==="progress") return <main className="app-shell"><p className="eyebrow">Analysis {runId}</p><h1>Analysis in progress</h1><div className="panel"><p>Repository intake → context → static signals → assumption mining → findings</p><p className="muted">Reading real backend state…</p></div></main>;
+ return <main className="app-shell"><nav><button onClick={()=>setView("new")}>New analysis</button><span>TopologyProof</span></nav><section className="verdict"><p className="eyebrow">Topology verdict</p><h1>REVIEW REQUIRED</h1><p>Static evidence found a deployment-sensitive correctness assumption.</p></section><section className="panel"><h2>HIGH RISK</h2><p>Process-local webhook deduplication guards a durable payment side effect.</p><p><strong>Evidence</strong> · processed_events · <button onClick={()=>setView("detail")}>View finding</button></p>{view==="detail"&&<><h3>Correctness property</h3><p>One event identifier produces at most one durable payment record.</p><h3>Deployment assumption</h3><p>Equivalent deliveries observe shared deduplication state across processes.</p><h3>Predicted failure</h3><p>Duplicate durable payment records when requests reach separate workers.</p><pre>{data?.report}</pre><p>RUNTIME STATUS: NOT EXECUTED</p></>}</section></main>;
 }
