@@ -1,5 +1,6 @@
 ﻿"""In-process execution."""
-from concurrent.futures import ThreadPoolExecutor\nfrom typing import Any
+from concurrent.futures import ThreadPoolExecutor
+from typing import Any
 
 
 class InProcessExecutor:
