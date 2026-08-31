@@ -86,9 +86,7 @@ class FindingList(ContractModel):
         if len(finding_ids) != len(set(finding_ids)):
             raise ValueError("finding_id values must be unique")
         verdicts = {finding.verdict for finding in self.findings}
-        if FindingVerdict.HIGH_RISK in verdicts:
-            expected = OverallVerdict.REVIEW_REQUIRED
-        elif FindingVerdict.REVIEW_REQUIRED in verdicts:
+        if FindingVerdict.HIGH_RISK in verdicts or FindingVerdict.REVIEW_REQUIRED in verdicts:
             expected = OverallVerdict.REVIEW_REQUIRED
         else:
             expected = OverallVerdict.NO_TESTED_TOPOLOGY_FAILURE
