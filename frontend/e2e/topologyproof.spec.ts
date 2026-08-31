@@ -1,11 +1,11 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 const fixture = path.resolve("e2e/.fixture");
 test.beforeAll(() => { if (!fs.existsSync(path.join(fixture,".git"))) execFileSync("python", ["-m", "demo.webhook_dedup.materialize", "--destination", fixture], { cwd: ".." }); });
 test("real desktop analysis flow", async ({ page }) => {
- const errors:string[]=[]; page.on("response", _r=>{}); page.on("pageerror", e=>errors.push(e.message)); page.on("console", m=>{if(m.type()==="error" && !m.text().includes("404")) errors.push(m.text());});
+ const errors:string[]=[]; page.on("pageerror", e=>errors.push(e.message)); page.on("console", m=>{if(m.type()==="error" && !m.text().includes("404")) errors.push(m.text());});
  await page.goto("/"); await expect(page.getByText("TopologyProof")).toBeVisible();
  const base=execFileSync("git",["-C",fixture,"rev-parse","HEAD~1"],{encoding:"utf8",cwd:".."}).trim(); const candidate=execFileSync("git",["-C",fixture,"rev-parse","HEAD"],{encoding:"utf8",cwd:".."}).trim(); const values=[fixture,"Webhook deduplication must prevent duplicate payments",base,candidate];
  for (let i=0;i<4;i++) await page.locator("input").nth(i).fill(values[i]);
