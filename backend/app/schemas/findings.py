@@ -1,4 +1,4 @@
-"""Finding, recommendation, and verdict contracts."""
+﻿"""Finding, recommendation, and verdict contracts."""
 
 from pydantic import model_validator
 
@@ -87,7 +87,7 @@ class FindingList(ContractModel):
             raise ValueError("finding_id values must be unique")
         verdicts = {finding.verdict for finding in self.findings}
         if FindingVerdict.HIGH_RISK in verdicts:
-            expected = OverallVerdict.TOPOLOGY_SENSITIVE_CORRECTNESS_RISK
+            expected = OverallVerdict.REVIEW_REQUIRED
         elif FindingVerdict.REVIEW_REQUIRED in verdicts:
             expected = OverallVerdict.REVIEW_REQUIRED
         else:
@@ -95,3 +95,4 @@ class FindingList(ContractModel):
         if self.overall_verdict is not expected:
             raise ValueError("overall_verdict does not match finding verdicts")
         return self
+
