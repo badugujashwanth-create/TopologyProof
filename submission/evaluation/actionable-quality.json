@@ -1,0 +1,84 @@
+{
+  "baseline": {
+    "total": 1,
+    "criteria": [
+      {
+        "criterion_id": "C1",
+        "satisfied": true,
+        "evidence": "risk decision",
+        "source": "baseline-webhook.json"
+      },
+      {
+        "criterion_id": "C2",
+        "satisfied": false,
+        "evidence": "candidate path/line/excerpt",
+        "source": "baseline-webhook.json"
+      },
+      {
+        "criterion_id": "C3",
+        "satisfied": false,
+        "evidence": "deployment assumption",
+        "source": "baseline-webhook.json"
+      },
+      {
+        "criterion_id": "C4",
+        "satisfied": false,
+        "evidence": "topology dimension",
+        "source": "baseline-webhook.json"
+      },
+      {
+        "criterion_id": "C5",
+        "satisfied": false,
+        "evidence": "predicted failure",
+        "source": "baseline-webhook.json"
+      },
+      {
+        "criterion_id": "C6",
+        "satisfied": false,
+        "evidence": "verification plan",
+        "source": "baseline-webhook.json"
+      }
+    ]
+  },
+  "topologyproof": {
+    "total": 6,
+    "criteria": [
+      {
+        "criterion_id": "C1",
+        "satisfied": true,
+        "evidence": "risk decision",
+        "source": "findings.json/report.md"
+      },
+      {
+        "criterion_id": "C2",
+        "satisfied": true,
+        "evidence": "candidate path/line/excerpt",
+        "source": "findings.json/report.md"
+      },
+      {
+        "criterion_id": "C3",
+        "satisfied": true,
+        "evidence": "deployment assumption",
+        "source": "findings.json/report.md"
+      },
+      {
+        "criterion_id": "C4",
+        "satisfied": true,
+        "evidence": "topology dimension",
+        "source": "findings.json/report.md"
+      },
+      {
+        "criterion_id": "C5",
+        "satisfied": true,
+        "evidence": "predicted failure",
+        "source": "findings.json/report.md"
+      },
+      {
+        "criterion_id": "C6",
+        "satisfied": true,
+        "evidence": "verification plan",
+        "source": "findings.json/report.md"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "prediction": "RISK",
+  "evidence": [
+    "diff hunk contains set(), membership guard, record_payment()"
+  ],
+  "rationale": "diff-only structural heuristic"
+}

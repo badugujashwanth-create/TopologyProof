@@ -1,0 +1,1 @@
+"repo_path=WindowsPath('D:/Hackathons/TopologyProof/.final-proof/test_offline_fixture_vertical_0/fixture') base_ref='8340213d56448c07d5c3fb41700282083a6b7f18' candidate_ref='383d8fc52d68565dbef83a8b84975fe956bb5c55' provider=<ProviderName.OFFLINE: 'offline'> ticket='Each external payment webhook event must produce at most one durable payment record.'"
