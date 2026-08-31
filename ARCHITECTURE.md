@@ -1,20 +1,7 @@
-# TopologyProof architecture
+﻿# TopologyProof architecture
 
-## Implemented M0 boundary
+TopologyProof is a local static-first verification workbench. A FastAPI backend accepts a local Git repository, ticket, and base/candidate refs. The bounded shell-free Git client feeds repository intake, changed-symbol detection, provenance-bounded context, and deterministic mutable-state signals. The offline assumption provider turns factual evidence into structured deployment hypotheses; finding synthesis validates candidate evidence, applies the scoped verdict policy, and emits recommendation-only verification data.
 
-The M0 service is a FastAPI application factory in `backend/app/main.py`. `backend/app/config.py` owns validated, environment-backed settings. `backend/app/api/health.py` exposes the versioned health contract through `backend/app/api/router.py`. The M0 frontend foundation lives in `frontend/`: a Vite/React/TypeScript application with a mountable product-identity shell plus locked local install, lint, typecheck, test, and production-build tooling. It deliberately contains no product workflow or API integration.
+Runs are persisted by `RunStore` with atomic UTF-8 artifacts and observable JSONL trajectories plus Markdown reports. An in-process executor runs the explicit pipeline. React/Vite provides four M1 screens backed by the real API.
 
-The application is local by default: it binds to loopback, uses the `offline` provider setting, and stores future TopologyProof artifacts beneath `.topologyproof/runs`. Empty OpenAI configuration values are treated as absent secrets.
-
-## Trust boundary
-
-This task does not accept, inspect, execute, or modify target repositories. No analysis pipeline, runtime verification, frontend product workflow, benchmark, evaluation, fixture, or submission artifact exists in the M0 foundation.
-
-## Package layout
-
-- `backend/app/config.py`: server configuration and validated limits.
-- `backend/app/errors.py`: typed domain error base class.
-- `backend/app/api/`: versioned HTTP routes.
-- `backend/app/main.py`: FastAPI application factory.
-- `backend/tests/`: foundation tests.
-- `frontend/`: mountable React/Vite identity shell, strict TypeScript, linting, tests, and production build tooling.
+Target repositories remain untrusted and read-only; source code is never executed. Runtime topology falsification (including multi-replica experiments) is future M2 scope.

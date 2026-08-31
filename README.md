@@ -1,64 +1,43 @@
-# TopologyProof
+﻿# TopologyProof
 
-TopologyProof is a local, evidence-driven tool for examining deployment assumptions in Git changes. This initial M0 foundation provides validated server settings, a health endpoint, and a minimal frontend identity shell only; it does not analyze repositories.
+Agentic falsification of hidden deployment assumptions. TopologyProof asks which deployment assumptions a backend patch silently depends on, then produces bounded evidence and the smallest recommended falsification experiment.
 
-## Windows setup
+## Demonstrated M1
 
-Use Python 3.12 or 3.13 from PowerShell:
+The trusted FastAPI webhook fixture uses process-local `processed_events` state to guard durable `record_payment`. Static analysis connects membership, mutation, duplicate suppression, and the side effect. The result is a **HIGH RISK** finding with overall **REVIEW REQUIRED** and runtime **NOT EXECUTED**. Static evidence alone never produces RED.
+
+The four-screen demo is New Analysis, Analysis Progress, Findings Dashboard, and Finding Detail / Verification Recommendation. M1 has no RUN VERIFICATION control and does not execute target code.
+
+## Quick start (PowerShell)
 
 ```powershell
-python -m venv .venv
-& .\.venv\Scripts\python.exe -m pip install pip-tools==7.6.1
-& .\.venv\Scripts\pip-compile.exe --no-emit-index-url --extra dev --generate-hashes --output-file requirements.lock pyproject.toml
 & .\.venv\Scripts\python.exe -m pip install --require-hashes -r requirements.lock
 & .\.venv\Scripts\python.exe -m pip install --no-deps -e .
-```
-
-## Run and verify
-
-```powershell
-& .\.venv\Scripts\python.exe -m uvicorn backend.app.main:create_app --factory --host 127.0.0.1 --port 8000
-& .\.venv\Scripts\python.exe -m pytest backend/tests/test_foundation.py -v
-& .\.venv\Scripts\python.exe -m ruff check backend
-& .\.venv\Scripts\python.exe -m mypy backend
-```
-
-The local health check is `GET http://127.0.0.1:8000/api/v1/health`.
-
-## Trusted webhook fixture
-
-Create the local two-commit webhook fixture when developing or testing the later
-analysis pipeline:
-
-```powershell
 & .\.venv\Scripts\python.exe -m demo.webhook_dedup.materialize --destination .topologyproof\fixtures\webhook-dedup
-git -C .topologyproof\fixtures\webhook-dedup status --short
-```
-
-The command prints the repository path, base ref, candidate ref, and requirement
-text as JSON. The fixture is a trusted local input for analysis tests; it is not
-executed or modified by the later analysis workflow.
-
-## Frontend foundation
-
-Install the frontend dependencies, then start the local Vite server:
-
-```powershell
+& .\.venv\Scripts\python.exe -m uvicorn backend.app.main:create_app --factory --host 127.0.0.1 --port 8000
 npm --prefix frontend install
 npm --prefix frontend run dev
 ```
 
-The foundation shell is served at `http://127.0.0.1:5173`. It contains no analysis controls or API integration.
+Open `http://127.0.0.1:5173`. Copy the JSON printed by materialization into the four fields. Click **ANALYZE PATCH**. Inspect the generated `.topologyproof/runs/<RUN_ID>/` artifacts.
 
-Run the frontend checks from the repository root:
+## Verification
 
 ```powershell
+& .\.venv\Scripts\python.exe -m pytest backend/tests -q --basetemp .final-backend -p no:cacheprovider
+& .\.venv\Scripts\python.exe -m ruff check backend
+& .\.venv\Scripts\python.exe -m mypy backend/app
 npm --prefix frontend run lint
 npm --prefix frontend run typecheck
 npm --prefix frontend run test -- --run
 npm --prefix frontend run build
+Set-Location frontend; .\node_modules\.bin\playwright.cmd test --project=desktop; Set-Location ..
 ```
 
-## Configuration
+## Evidence artifacts
 
-Copy `.env.example` to `.env` to override settings. The default provider is `offline`; `TOPOLOGYPROOF_OPENAI_API_KEY` and `TOPOLOGYPROOF_OPENAI_MODEL` are blank by default and are not required for the M0 health service. Artifact storage defaults to `.topologyproof/runs` and is ignored by Git.
+Each completed run persists `run.json`, `request.json`, `trajectory.jsonl`, `findings.json`, and `report.md`. JSONL records observable stages such as repository resolution, diff, symbols, context, static scan, assumption mining, finding synthesis, recommendation, verdict, and report writing; it contains no private chain-of-thought. Runtime falsification is future M2 work.
+
+## Trust and limits
+
+Analyzed repositories are untrusted, read-only data. TopologyProof does not run target Python, tests, scripts, package managers, hooks, binaries, or shell instructions. Secret-prone content is bounded/redacted. The deterministic offline provider is the default; live provider credentials are optional. M1 is static-first, makes no universal-safety claim, and does not execute runtime verification.
